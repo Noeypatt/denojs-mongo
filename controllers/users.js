@@ -61,9 +61,26 @@ export const createDog = async context => {
 
 export const updateDog = async context => {
     try {
+        const nameDog = context.params.name
+        let body = await context.request.body()
+        const { name, age } = body.value
+        const data = {}
+
+        if (name) {
+            data["name"] = name
+
+        }
+        if (age) {
+            data["age"] = age
+        }
+
+        const result = await Dog.updateOne({ name: nameDog }, { $set: data })
+        context.response.body = result
+        context.response.status = 201
 
     } catch (err) {
-
+        context.response.body = "not found";
+        context.response.status = 404
     }
 }
 
