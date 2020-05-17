@@ -87,9 +87,7 @@ router
     .delete('/dog/:name', async context => {
         const name = context.params.name
         const dog = dogs.filter((dog) => dog.name !== name)
-        console.log(dog);
         
-
         if (dog.length) {
             context.response.body = dog
             context.response.status = 200
@@ -99,7 +97,6 @@ router
             context.response.status = 400
             context.response.body = { msg: `Cannot find dog name: ${name}` }
         }
-
 
     })
 
