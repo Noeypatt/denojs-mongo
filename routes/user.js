@@ -1,7 +1,6 @@
 import { Router } from 'https://deno.land/x/oak/mod.ts'
 import { fetchAllDogs, fetchOneDog, createDog, updateDog, deleteDog } from '../controllers/users.js'
 
-
 const router = new Router();
 
 router.get('/', context => {
@@ -16,4 +15,4 @@ router
     .delete('/dog/:name', deleteDog)
 
 
-    export default router
+export default router
