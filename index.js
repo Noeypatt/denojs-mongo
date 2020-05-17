@@ -1,6 +1,6 @@
 import { Application } from 'https://deno.land/x/oak/mod.ts'
 import "https://deno.land/x/dotenv/load.ts";
-import router from './routes/user.js'
+import router from './routes/users.js'
 
 const env = Deno.env.toObject()
 const PORT = env.PORT || 8000
