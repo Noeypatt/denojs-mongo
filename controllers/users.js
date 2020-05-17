@@ -1,36 +1,40 @@
 import { Dog } from '../config/db.js'
 
-let dogs = [
-    {
-        name: 'Roger',
-        age: 8,
-    },
-    {
-        name: 'Syd',
-        age: 7,
-    },
-    {
-        name: 'Kiki',
-        age: 3,
-    },
-]
-
-export const fetchAllDogs = context => {
-    context.response.status = 200
-    context.response.body = dogs
+export const fetchAllDogs = async context => {
+    try {
+        const data = await Dog.find();
+        if (data) {
+            context.response.body = data;
+            context.response.status = 200;
+        } else {
+            context.response.body = "not found";
+            context.response.status = 204;
+        }
+    }
+    catch (err) {
+        context.response.body = null;
+        context.response.status = 500
+        console.log(e);
+    }
 }
 
-export const fetchOneDog = context => {
-    const name = context.params.name
-    const dog = dogs.filter((dog) => dog.name === name)
+export const fetchOneDog = async context => {
+    try {
+        let name = context.params.name;
 
-    if (dog.length > 0) {
-        context.response.status = 200
-        context.response.body = dog
+        const data = await Dog.findOne({ name: name });
+        if (data) {
+            context.response.body = data;
+            context.response.status = 200;
+        } else {
+            context.response.body = "not found";
+            context.response.status = 204;
+        }
     }
-    else {
-        context.response.status = 404
-        context.response.body = { msg: `Cannot find dog name: ${name}` }
+    catch (err) {
+        context.response.body = null;
+        context.response.status = 500
+        console.log(e);
     }
 }
 
