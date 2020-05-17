@@ -60,24 +60,37 @@ router
 
     })
     .put('/dog/:name', async context => {
-        const dogName = context.params.name
-        const temp = dogs.filter((dog) => dog.name === dogName)
+        const name = context.params.name
+        const temp = dogs.filter((dog) => dog.name === name)
 
         const body = await context.request.body()
         const dog = body.value
 
         if (temp.length) {
-            temp[0].name = dog.name ? dog.name: temp[0].name
-            temp[0].age = dog.age ? dog.age: temp[0].age
+            temp[0].name = dog.name ? dog.name : temp[0].name
+            temp[0].age = dog.age ? dog.age : temp[0].age
 
             context.response.body = { msg: 'Update!!!' }
             context.response.status = 200
         }
 
         else {
-            response.status = 400
-            response.body = { msg: `Cannot find dog name: ${name}` }
+            context.response.status = 400
+            context.response.body = { msg: `Cannot find dog name: ${name}` }
         }
+    })
+
+    .delete('/dog/:name', context => {
+        const lengthBefore = dogs.length
+        const name = context.params.name
+        const dog = dogs.filter((dog) => dog.name !== name)
+
+        if (dog.length === lengthBefore) {
+            context.response.status = 400
+            context.response.body = { msg: `Cannot find dog name: ${name}` }
+        }
+        context.response.body = { msg: 'OK' }
+        context.response.status = 200
     })
 
 
