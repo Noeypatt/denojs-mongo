@@ -1,3 +1,5 @@
+import { Dog } from '../config/db.js'
+
 let dogs = [
     {
         name: 'Roger',
@@ -33,17 +35,23 @@ export const fetchOneDog = context => {
 }
 
 export const createDog = async context => {
-    const body = await context.request.body()
-    const dog = body.value
 
-    if (dog.name != undefined && !dog.age != undefined) {
-        dogs.push(dog)
-        context.response.body = { msg: 'Dog created!' }
-        context.response.status = 200
-    }
-    else {
+    try {
+        const body = await context.request.body()
+        const { name, age } = body.value
+
+        const id = await Dog.insertOne({
+            name: name,
+            age: age
+        })
+
+        context.response.body = id;
+        context.response.status = 201;
+
+    } catch (err) {
         context.response.body = { msg: 'Error' }
-        context.response.status = 400
+        context.response.status = 500;
+        console.log(e);
     }
 }
 
