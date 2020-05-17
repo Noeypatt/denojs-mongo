@@ -13,12 +13,12 @@ let dogs = [
     },
 ]
 
-export const fetchAllDogs = (context) => {
+export const fetchAllDogs = context => {
     context.response.status = 200
     context.response.body = dogs
 }
 
-export const fetchOneDog = (context) => {
+export const fetchOneDog = context => {
     const name = context.params.name
     const dog = dogs.filter((dog) => dog.name === name)
 
@@ -32,7 +32,7 @@ export const fetchOneDog = (context) => {
     }
 }
 
-export const createDog = async (context) => {
+export const createDog = async context => {
     const body = await context.request.body()
     const dog = body.value
 
@@ -44,5 +44,26 @@ export const createDog = async (context) => {
     else {
         context.response.body = { msg: 'Error' }
         context.response.status = 400
+    }
+}
+
+export const updateDog = async context => {
+    const name = context.params.name
+    const temp = dogs.filter((dog) => dog.name === name)
+
+    const body = await context.request.body()
+    const dog = body.value
+
+    if (temp.length) {
+        temp[0].name = dog.name ? dog.name : temp[0].name
+        temp[0].age = dog.age ? dog.age : temp[0].age
+
+        context.response.body = { msg: 'Update!!!' }
+        context.response.status = 200
+    }
+
+    else {
+        context.response.status = 400
+        context.response.body = { msg: `Cannot find dog name: ${name}` }
     }
 }
