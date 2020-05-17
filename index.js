@@ -24,22 +24,41 @@ router.get('/', context => {
 
 router
     .get('/dogs', context => {
+
+        context.response.status = 200
         context.response.body = dogs
+
     })
     .get('/dog/:name', context => {
         const name = context.params.name
         const dog = dogs.filter((dog) => dog.name === name)
 
         if (dog.length > 0) {
+            context.response.status = 200
             context.response.body = dog
         }
         else {
-            context.response.body = `${name} Not found`
+            context.response.status = 404
+            context.response.body = { msg: `Cannot find dog name: ${name}` }
         }
 
     })
+    .post('/dogs', async context => {
 
+        const body = await context.request.body()
+        const dog = body.value
 
+        if (dog.name != undefined  && !dog.age != undefined) {
+            dogs.push(dog)
+            context.response.body = { msg: 'Dog created!' }
+            context.response.status = 200
+        }
+        else{
+            context.response.body = { msg: 'Error' }
+            context.response.status = 400
+        }
+
+    })
 
 
 const app = new Application();
