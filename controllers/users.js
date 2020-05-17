@@ -85,16 +85,17 @@ export const updateDog = async context => {
 }
 
 export const deleteDog = async context => {
-    const name = context.params.name
-    const dog = dogs.filter((dog) => dog.name !== name)
+    try {
 
-    if (dog.length) {
-        context.response.body = dog
-        context.response.status = 200
-    }
+        const name = context.params.name
+        const result = await Dog.deleteOne({ name: name })
 
-    else {
-        context.response.status = 400
-        context.response.body = { msg: `Cannot find dog name: ${name}` }
+        context.response.body = result ? "Delete!!!" : "Dog not found"
+        context.response.status = result ? 201 : 404
+
+
+    } catch (err) {
+        context.response.body = "not found";
+        context.response.status = 404
     }
 }
