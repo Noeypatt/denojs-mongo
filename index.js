@@ -14,6 +14,10 @@ let dogs = [
         name: 'Syd',
         age: 7,
     },
+    {
+        name: 'Kiki',
+        age: 3,
+    },
 ]
 
 const router = new Router();
@@ -80,17 +84,23 @@ router
         }
     })
 
-    .delete('/dog/:name', context => {
-        const lengthBefore = dogs.length
+    .delete('/dog/:name', async context => {
         const name = context.params.name
         const dog = dogs.filter((dog) => dog.name !== name)
+        console.log(dog);
+        
 
-        if (dog.length === lengthBefore) {
+        if (dog.length) {
+            context.response.body = dog
+            context.response.status = 200
+        }
+
+        else {
             context.response.status = 400
             context.response.body = { msg: `Cannot find dog name: ${name}` }
         }
-        context.response.body = { msg: 'OK' }
-        context.response.status = 200
+
+
     })
 
 
