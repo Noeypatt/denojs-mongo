@@ -13,7 +13,7 @@ let dogs = [
     },
 ]
 
-export const fetchAllDog = (context) => {
+export const fetchAllDogs = (context) => {
     context.response.status = 200
     context.response.body = dogs
 }
@@ -29,5 +29,20 @@ export const fetchOneDog = (context) => {
     else {
         context.response.status = 404
         context.response.body = { msg: `Cannot find dog name: ${name}` }
+    }
+}
+
+export const createDog = async (context) => {
+    const body = await context.request.body()
+    const dog = body.value
+
+    if (dog.name != undefined && !dog.age != undefined) {
+        dogs.push(dog)
+        context.response.body = { msg: 'Dog created!' }
+        context.response.status = 200
+    }
+    else {
+        context.response.body = { msg: 'Error' }
+        context.response.status = 400
     }
 }
