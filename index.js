@@ -1,5 +1,6 @@
 import { Application, Router } from 'https://deno.land/x/oak/mod.ts'
 import "https://deno.land/x/dotenv/load.ts";
+import {fetchAllEmployees} from './controllers/users.js'
 
 const env = Deno.env.toObject()
 const PORT = env.PORT || 8000
@@ -27,12 +28,8 @@ router.get('/', context => {
 })
 
 router
-    .get('/dogs', context => {
-
-        context.response.status = 200
-        context.response.body = dogs
-
-    })
+    .get('/dogs', fetchAllEmployees)
+    
     .get('/dog/:name', context => {
         const name = context.params.name
         const dog = dogs.filter((dog) => dog.name === name)
