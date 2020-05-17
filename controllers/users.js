@@ -67,3 +67,18 @@ export const updateDog = async context => {
         context.response.body = { msg: `Cannot find dog name: ${name}` }
     }
 }
+
+export const deleteDog = async context => {
+    const name = context.params.name
+    const dog = dogs.filter((dog) => dog.name !== name)
+
+    if (dog.length) {
+        context.response.body = dog
+        context.response.status = 200
+    }
+
+    else {
+        context.response.status = 400
+        context.response.body = { msg: `Cannot find dog name: ${name}` }
+    }
+}
