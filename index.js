@@ -17,7 +17,6 @@ router
     .get('/dog/:name', fetchOneDog)
     .post('/dogs', createDog)
     .put('/dog/:name', updateDog)
-
     .delete('/dog/:name', deleteDog)
 
 const app = new Application();
