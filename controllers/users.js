@@ -79,8 +79,9 @@ export const updateDog = async context => {
         context.response.status = 201
 
     } catch (err) {
-        context.response.body = "not found";
+        context.response.body = { msg: 'Error' }
         context.response.status = 404
+        console.log(err);
     }
 }
 
@@ -95,7 +96,8 @@ export const deleteDog = async context => {
 
 
     } catch (err) {
-        context.response.body = "not found";
+        context.response.body = { msg: 'Error' }
         context.response.status = 404
+        console.log(err);
     }
 }
