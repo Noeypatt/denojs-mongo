@@ -1,14 +1,23 @@
-import { Application } from "https://deno.land/x/abc@v1.0.0-rc2/mod.ts";
-import "https://deno.land/x/denv/mod.ts";
+import { Application, Router } from 'https://deno.land/x/oak/mod.ts'
 
-import {
-  fetchAllEmployees,
-}
-  from "./controllers/users.js";
+const env = Deno.env.toObject()
+const PORT = env.PORT || 4000
+const HOST = env.HOST || '127.0.0.1'
+
+const router = new Router();
+
+router.get('/', context => {
+    context.response.body = "Hello Deno 🦕"
+})
+
+router.post('/', context => {
+    context.response.body = "POST request"
+})
 
 const app = new Application();
 
-app.get("/users", fetchAllEmployees)
-  .start({ port: 5000 });
+app.use(router.routes())
+app.use(router.allowedMethods())
 
-console.log(`server listening on http://localhost:5000`);
+const server = app.listen("127.0.0.1:5000");
+console.log("http://127.0.0.1:5000");
