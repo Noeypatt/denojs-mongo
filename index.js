@@ -1,6 +1,14 @@
-import { serve } from "https://deno.land/std@0.50.0/http/server.ts";
-const s = serve({ port: 8000 });
-console.log("http://localhost:8000/");
-for await (const req of s) {
-    req.respond({ body: "Hello World\n" });
+import { Application } from "https://deno.land/x/abc@v1.0.0-rc2/mod.ts";
+import "https://deno.land/x/denv/mod.ts";
+
+import {
+  fetchAllEmployees,
 }
+  from "./controllers/users.js";
+
+const app = new Application();
+
+app.get("/users", fetchAllEmployees)
+  .start({ port: 5000 });
+
+console.log(`server listening on http://localhost:5000`);
