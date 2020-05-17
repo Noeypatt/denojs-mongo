@@ -14,7 +14,7 @@ export const fetchAllDogs = async context => {
     catch (err) {
         context.response.body = null;
         context.response.status = 500
-        console.log(e);
+        console.log(err);
     }
 }
 
@@ -34,7 +34,7 @@ export const fetchOneDog = async context => {
     catch (err) {
         context.response.body = null;
         context.response.status = 500
-        console.log(e);
+        console.log(err);
     }
 }
 
@@ -55,28 +55,15 @@ export const createDog = async context => {
     } catch (err) {
         context.response.body = { msg: 'Error' }
         context.response.status = 500;
-        console.log(e);
+        console.log(err);
     }
 }
 
 export const updateDog = async context => {
-    const name = context.params.name
-    const temp = dogs.filter((dog) => dog.name === name)
+    try {
 
-    const body = await context.request.body()
-    const dog = body.value
+    } catch (err) {
 
-    if (temp.length) {
-        temp[0].name = dog.name ? dog.name : temp[0].name
-        temp[0].age = dog.age ? dog.age : temp[0].age
-
-        context.response.body = { msg: 'Update!!!' }
-        context.response.status = 200
-    }
-
-    else {
-        context.response.status = 400
-        context.response.body = { msg: `Cannot find dog name: ${name}` }
     }
 }
 
