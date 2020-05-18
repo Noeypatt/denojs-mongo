@@ -2,11 +2,6 @@ import { Router } from 'https://deno.land/x/oak/mod.ts'
 import { fetchAllDogs, fetchOneDog, amountDog, createDog, createDogs, updateDog, deleteDog } from '../controllers/dogs.js'
 
 const router = new Router();
-
-router.get('/Deno', context => {
-    context.response.body = "Hello Dog 🦕"
-})
-
 router.get('/', context => {
     context.response.body = "Hello Dog 🐕"
 })

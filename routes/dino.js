@@ -3,7 +3,7 @@ import { fetchAllDino, createDino, updateDino, deleteDino } from '../controllers
 
 const routerDino = new Router();
 
-routerDino.get('/deno', context => {
+routerDino.get('/', context => {
     context.response.body = "Hello Deno 🦕"
 })
 
