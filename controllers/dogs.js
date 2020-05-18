@@ -1,4 +1,4 @@
-import { Dog } from '../config/db.js'
+import { Dog } from '../config/db.dog.js'
 
 export const fetchAllDogs = async context => {
     try {
