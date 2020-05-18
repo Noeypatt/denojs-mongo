@@ -2,9 +2,9 @@ import { Dog } from '../config/db.js'
 
 export const fetchAllDogs = async context => {
     try {
-        const data = await Dog.find();
-        if (data) {
-            context.response.body = data;
+        const dog = await Dog.find();
+        if (dog) {
+            context.response.body = dog;
             context.response.status = 200;
         } else {
             context.response.body = { message: '204: No Content' };
@@ -22,9 +22,9 @@ export const fetchOneDog = async context => {
     try {
         let name = context.params.name;
 
-        const data = await Dog.findOne({ name: name });
-        if (data) {
-            context.response.body = { message: '202: OK' };
+        const dog = await Dog.findOne({ name: name });
+        if (dog) {
+            context.response.body = dog;
             context.response.status = 200;
         } else {
             context.response.body = { message: '204: No Content' };
@@ -35,6 +35,25 @@ export const fetchOneDog = async context => {
         context.response.body = { message: '404: Not Found' };
         context.response.status = 404
         console.log(err);
+    }
+}
+
+export const amountDog = async context => {
+    try {
+        const dog = await Dog.count();
+        if (dog) {
+            context.response.body = { Total: dog }
+            context.response.status = 200;
+        } else {
+            context.response.body = { message: '204: No Content' };
+            context.response.status = 204;
+        }
+
+    } catch (err) {
+        context.response.body = { message: '500: Internal Server Error' }
+        context.response.status = 500
+        console.log(err);
+
     }
 }
 
