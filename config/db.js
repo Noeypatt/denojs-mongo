@@ -12,6 +12,4 @@ client.connectWithUri(DB_HOST_URL);
 
 const db = client.database(DB_NAME);
 
-
-
 export const Dog = db.collection("dog");
