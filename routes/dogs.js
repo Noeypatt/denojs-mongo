@@ -3,7 +3,7 @@ import { fetchAllDogs, fetchOneDog, amountDog, createDog, createDogs, updateDog,
 
 const router = new Router();
 
-router.get('/deno', context => {
+router.get('/Deno', context => {
     context.response.body = "Hello Dog 🦕"
 })
 
