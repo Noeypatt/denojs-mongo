@@ -1,5 +1,5 @@
 import { Router } from 'https://deno.land/x/oak/mod.ts'
-import { fetchAllDino, fetchOneDino, amountDino} from '../controllers/dino.js'
+import { fetchAllDino, createDino, updateDino, deleteDino } from '../controllers/dino.js'
 
 const router = new Router();
 
@@ -9,7 +9,8 @@ router.get('/', context => {
 
 router
     .get('/dinos', fetchAllDino)
-    .get('/dino/:name', fetchOneDino)
-    .get('/dinos/count', amountDino)
+    .post('/dino', createDino)
+    .put('/dino/:name', updateDino)
+    .delete('/dino/:name', updateDino)
 
 export default router
