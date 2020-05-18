@@ -9,8 +9,9 @@ const HOST = env.HOST || '127.0.0.1'
 
 const app = new Application();
 app.use(routerDog.routes());
-app.use(routerDino().routes());
+app.use(routerDino.routes());
 app.use(routerDog.allowedMethods());
+app.use(routerDino.allowedMethods());
 
 app.listen(`${HOST}:${PORT}`);
 console.log(`http://${HOST}:${PORT}`);

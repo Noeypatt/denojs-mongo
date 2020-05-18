@@ -1,16 +1,16 @@
 import { Router } from 'https://deno.land/x/oak/mod.ts'
 import { fetchAllDino, createDino, updateDino, deleteDino } from '../controllers/dino.js'
 
-const router = new Router();
+const routerDino = new Router();
 
-router.get('/', context => {
+routerDino.get('/deno', context => {
     context.response.body = "Hello Deno 🦕"
 })
 
-router
+routerDino
     .get('/dinos', fetchAllDino)
     .post('/dino', createDino)
     .put('/dino/:name', updateDino)
-    .delete('/dino/:name', updateDino)
+    .delete('/dino/:name', deleteDino)
 
-export default router
+export default routerDino

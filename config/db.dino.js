@@ -3,8 +3,8 @@ import "https://deno.land/x/dotenv/load.ts";
 
 
 const env = Deno.env.toObject()
-const DB_NAME = env.DB_NAME || "deno_dino"
-const DB_HOST_URL = env.DB_HOST_URL || 'mongodb://localhost:27017'
+const DB_NAME = "deno_dino"
+const DB_HOST_URL = 'mongodb://localhost:27017'
 
 await init()
 
