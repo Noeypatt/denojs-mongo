@@ -4,7 +4,7 @@ import { fetchAllDino, fetchOneDino, amountDino} from '../controllers/dino.js'
 const router = new Router();
 
 router.get('/', context => {
-    context.response.body = "Hello Dog 🦕"
+    context.response.body = "Hello Deno 🦕"
 })
 
 router
