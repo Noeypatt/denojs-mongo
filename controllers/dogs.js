@@ -1,4 +1,4 @@
-import { Dog } from '../config/db.dog.js'
+import {Dog} from '../config/dogs.js'
 
 export const fetchAllDogs = async context => {
     try {
@@ -17,11 +17,9 @@ export const fetchAllDogs = async context => {
         console.log(err);
     }
 }
-
 export const fetchOneDog = async context => {
     try {
         let name = context.params.name;
-
         const dog = await Dog.findOne({ name: name });
         if (dog) {
             context.response.body = dog;
@@ -37,7 +35,6 @@ export const fetchOneDog = async context => {
         console.log(err);
     }
 }
-
 export const amountDog = async context => {
     try {
         const dog = await Dog.count();
@@ -48,41 +45,32 @@ export const amountDog = async context => {
             context.response.body = { message: '204: No Content' };
             context.response.status = 204;
         }
-
     } catch (err) {
         context.response.body = { message: '500: Internal Server Error' }
         context.response.status = 500
         console.log(err);
-
     }
 }
-
 export const createDog = async context => {
-
     try {
         const body = await context.request.body()
         const { name, age } = body.value
-
         const id = await Dog.insertOne({
             name: name,
             age: age
         })
-
         context.response.body = { message: 'Create Success' };
         context.response.status = 201;
-
     } catch (err) {
         context.response.body = { message: '500: Internal Server Error' }
         context.response.status = 500;
         console.log(err);
     }
 }
-
 export const createDogs = async context => {
     try {
         const body = await context.request.body()
         const item = body.value
-
         const dog = await Dog.insertMany(
             [
                 {
@@ -95,52 +83,41 @@ export const createDogs = async context => {
                 }
             ]
         )
-
         context.response.body = { message: 'Create Success' }
         context.response.status = 201
-
     } catch (err) {
         context.response.body = { message: '500: Internal Server Error' }
         context.response.status = 500
         console.log(err);
-
     }
 }
-
 export const updateDog = async context => {
     try {
         const nameDog = context.params.name
         let body = await context.request.body()
         const { name, age } = body.value
         const data = {}
-
         if (name) {
             data["name"] = name
         }
         if (age) {
             data["age"] = age
         }
-
         const result = await Dog.updateOne({ name: nameDog }, { $set: data })
         context.response.body = { message: 'Update Success' }
         context.response.status = 201
-
     } catch (err) {
         context.response.body = { message: '500: Internal Server Error' }
         context.response.status = 500
         console.log(err);
     }
 }
-
 export const deleteDog = async context => {
     try {
         const name = context.params.name
         const result = await Dog.deleteOne({ name: name })
-
         context.response.body = result ? "Delete Success" : "500: Internal Server Error"
         context.response.status = result ? 201 : 500
-
-
     } catch (err) {
         context.response.body = { message: '500: Internal Server Error' }
         context.response.status = 500
