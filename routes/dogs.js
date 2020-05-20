@@ -7,7 +7,7 @@ router.get('/deno', context => {
 })
 
 router.get('/', context => {
-    context.response.body = "Hello Dog 🐕"
+    context.response.body = "Hi Dog 🐶"
 })
 
 router

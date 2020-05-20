@@ -1,0 +1,35 @@
+{
+    "files": [
+        "index.js"
+    ],
+    "quiet": false,
+    "debug": true,
+    "fullscreen": true,
+    "extensions": [
+        ".js",
+        ".ts",
+        ".py",
+        ".json"
+    ],
+    "interval": 500,
+    "watch": [
+        "controllers/",
+        "config/",
+        "routes/"
+    ],
+    "deno_args":[
+        "--allow-net",
+        "--allow-read",
+        "--allow-write",
+        "--allow-env",
+        "--allow-plugin",
+        "--unstable"
+    ],
+    "execute": {
+        ".js": ["deno", "run"],
+        ".ts": ["deno", "run"],
+        ".py": ["python"]
+    },
+    "fmt": false,
+    "test": true
+}
